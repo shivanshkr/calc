@@ -1,126 +1,175 @@
 <app-calculator-layout [header]="header">
-  <div class="sip-calculator border-round border-1 border-200 py-4 px-2">
-    <div class="input flex flex-column gap-3">
-      <div>
-        <div class="flex justify-content-between">
-          <span class="text-sm flex align-content-center flex-wrap"
-            >Monthly investment</span
-          >
-          <p-inputGroup class="w-10rem md:w-16rem">
-            <p-inputGroupAddon>₹</p-inputGroupAddon>
-            <input
-              type="text"
+  <div class="border-round border-1 border-200 py-4 grid">
+    <div class="col-12 lg:col-7 lg:px-5">
+      <div class="flex flex-column gap-3">
+        <div>
+          <div class="flex justify-content-between">
+            <span class="text-sm flex align-content-center flex-wrap"
+              >Monthly Investment</span
+            >
+            <p-inputGroup class="w-10rem md:w-16rem">
+              <p-inputGroupAddon>₹</p-inputGroupAddon>
+              <input
+                type="text"
+                [(ngModel)]="monthlyInvestment"
+                appOnlyNaturalNumbers
+                [min]="0"
+                [max]="1000000"
+                (ngModelChange)="onMonthlyInvestmentChange($event)"
+                pInputText
+                placeholder="0"
+              />
+            </p-inputGroup>
+          </div>
+
+          <div class="mt-3 px-1">
+            <p-slider
+              [min]="100"
+              [max]="100000"
+              [step]="100"
               [(ngModel)]="monthlyInvestment"
-              appOnlyNaturalNumbers [min]="0" [max]="10000000"
+              styleClass="w-100"
               (ngModelChange)="onMonthlyInvestmentChange($event)"
-              pInputText
-              placeholder="0"
             />
-          </p-inputGroup>
+          </div>
         </div>
+        <div>
+          <div class="flex justify-content-between">
+            <span class="text-sm flex align-content-center flex-wrap"
+              >Return Rate</span
+            >
+            <p-inputGroup class="w-10rem md:w-16rem">
+              <input
+                type="number"
+                [(ngModel)]="returnRate"
+                appOnlyNaturalNumbers
+                [min]="0"
+                [max]="40"
+                (ngModelChange)="onReturnRateChange($event)"
+                pInputText
+                placeholder="0"
+              />
+              <p-inputGroupAddon>%</p-inputGroupAddon>
+            </p-inputGroup>
+          </div>
 
-        <div class="mt-3 px-1">
-          <p-slider
-            [min]="100"
-            [max]="100000"
-            [step]="100"
-            [(ngModel)]="monthlyInvestment"
-            styleClass="w-100"
-            (ngModelChange)="onMonthlyInvestmentChange($event)"
-          />
-        </div>
-      </div>
-      <div>
-        <div class="flex justify-content-between">
-          <span class="text-sm flex align-content-center flex-wrap"
-            >Return Rate</span
-          >
-          <p-inputGroup class="w-10rem md:w-16rem">
-            <input
-              type="number"
+          <div class="mt-3 px-1">
+            <p-slider
+              [min]="1"
+              [max]="40"
+              [step]="0.1"
               [(ngModel)]="returnRate"
-              appOnlyNaturalNumbers [min]="0" [max]="40"
+              styleClass="w-100"
               (ngModelChange)="onReturnRateChange($event)"
-              pInputText
-              placeholder="0"
             />
-            <p-inputGroupAddon>%</p-inputGroupAddon>
-          </p-inputGroup>
+          </div>
         </div>
+        <div>
+          <div class="flex justify-content-between">
+            <span class="text-sm flex align-content-center flex-wrap"
+              >Investment Time</span
+            >
+            <p-inputGroup class="w-10rem md:w-16rem">
+              <input
+                type="text"
+                [(ngModel)]="time"
+                appOnlyNaturalNumbers
+                [min]="0"
+                [max]="50"
+                (ngModelChange)="onTimeChange($event)"
+                pInputText
+                placeholder="0"
+              />
+              <p-inputGroupAddon>Yr</p-inputGroupAddon>
+            </p-inputGroup>
+          </div>
 
-        <div class="mt-3 px-1">
-          <p-slider
-            [min]="1"
-            [max]="40"
-            [step]="0.1"
-            [(ngModel)]="returnRate"
-            styleClass="w-100"
-            (ngModelChange)="onReturnRateChange($event)"
-          />
+          <div class="mt-3 px-1">
+            <p-slider
+              [min]="1"
+              [max]="50"
+              [step]="1"
+              [(ngModel)]="time"
+              styleClass="w-100"
+              (ngModelChange)="onTimeChange($event)"
+            />
+          </div>
         </div>
       </div>
-      <div>
+      <p-divider />
+      <div class="mt-6 flex flex-column gap-3 text-sm text-color-secondary">
         <div class="flex justify-content-between">
-          <span class="text-sm flex align-content-center flex-wrap"
-            >Investemt Time</span
-          >
-          <p-inputGroup class="w-10rem md:w-16rem">
-            <input
-              type="text"
-              [(ngModel)]="time"
-              appOnlyNaturalNumbers [min]="0" [max]="50"
-              (ngModelChange)="onTimeChange($event)"
-              pInputText
-              placeholder="0"
-            />
-            <p-inputGroupAddon>Yr</p-inputGroupAddon>
-          </p-inputGroup>
+          <div>Invested Amount</div>
+          <div>
+            {{ investedAmount | currency : "INR" : "symbol" : "1.0-0" }}
+          </div>
         </div>
-
-        <div class="mt-3 px-1">
-          <p-slider
-            [min]="1"
-            [max]="50"
-            [step]="1"
-            [(ngModel)]="time"
-            styleClass="w-100"
-            (ngModelChange)="onTimeChange($event)"
-          />
+        <div class="flex justify-content-between">
+          <div>Est. Return</div>
+          <div>{{ estReturn | currency : "INR" : "symbol" : "1.0-0" }}</div>
+        </div>
+        <div class="flex justify-content-between">
+          <div>Total Value</div>
+          <div>{{ totalValue | currency : "INR" : "symbol" : "1.0-0" }}</div>
         </div>
       </div>
     </div>
-
-    <p-divider />
-    <div class="output-graph-1 flex flex-column align-items-center flex-wrap">
-      <!-- <div class="flex flex-column align-items-center flex-wrap"> -->
+    <div class="col-12 lg:col-5 lg:border-left-1 border-200">
+      <p-divider class="lg:hidden" />
+      <div class="flex flex-column align-items-center flex-wrap">
         <div>
           The total value of your investment after <b>{{ time }} Years </b>will
           be
         </div>
-        <div class="text-3xl font-medium mt-1 mb-3">{{ totalValue | currency:'INR':'symbol':'1.0-0'}}</div>
-      <!-- </div> -->
-      <p-chart type="doughnut" [data]="doughnutData" />
-    </div>
-    <p-divider />
-    <div
-      class="output mt-6 flex flex-column gap-3 text-sm text-color-secondary"
-    >
-      <div class="flex justify-content-between">
-        <div>Invested Amount</div>
-        <div>{{ investedAmount | currency:'INR':'symbol':'1.0-0'}}</div>
-      </div>
-      <div class="flex justify-content-between">
-        <div>Est. Return</div>
-        <div>{{ estReturn | currency:'INR':'symbol':'1.0-0' }}</div>
-      </div>
-      <div class="flex justify-content-between">
-        <div>Total Value</div>
-        <div>{{ totalValue | currency:'INR':'symbol':'1.0-0' }}</div>
+        <div class="text-3xl font-medium mt-1 mb-3">
+          {{ totalValue | currency : "INR" : "symbol" : "1.0-0" }}
+        </div>
+        <p-chart type="doughnut" [data]="doughnutData" />
       </div>
     </div>
-    <p-divider />
-    <div class="output-graph-2">
+
+    <div class="col-12 grid">
+      <div class="col-12 lg:col-6 lg:sticky lg:top-0 lg:align-self-start">
+        <p-divider />
+        <div class="text-center">Year Wise Investment Details</div>
         <p-chart type="bar" [data]="barData" [options]="barOptions" />
+      </div>
+
+      <div class="col-12 lg:col-6">
+        <p-divider />
+        <p-table
+          [scrollable]="true"
+          [value]="yearlyData"
+          styleClass="p-datatable-striped p-datatable-gridlines"
+          [frozenColumns]="[]"
+        >
+          <ng-template pTemplate="caption"> Year Wise Data </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th pFrozenColumn>Year</th>
+              <th>Invested Amount</th>
+              <th>Est. Return</th>
+              <th alignFrozen="right" pFrozenColumn>Total Value</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-data>
+            <tr>
+              <td pFrozenColumn>{{ data.year }}</td>
+              <td>
+                {{ data.investedValue | currency : "INR" : "symbol" : "1.0-0" }}
+              </td>
+              <td>
+                {{
+                  data.estimatedReturn | currency : "INR" : "symbol" : "1.0-0"
+                }}
+              </td>
+              <td alignFrozen="right" pFrozenColumn>
+                {{ data.futureValue | currency : "INR" : "symbol" : "1.0-0" }}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
     </div>
   </div>
 </app-calculator-layout>

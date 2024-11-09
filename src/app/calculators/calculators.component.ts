@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
@@ -19,22 +18,25 @@ export class CalculatorsComponent {
     routerLink: '/',
   };
 
-  calculators: any[] = [];
+  calculators = [
+    {
+      name: 'SIP',
+      description: 'Calculate the sip',
+      redirectUrl: 'sip-calculator',
+    },
+    // {
+    //   name: 'SIP 2',
+    //   description: 'Calculate the sip 2',
+    //   redirectUrl: 'sip-calculator',
+    // },
+    // {
+    //   name: 'SIP 3',
+    //   description: 'Calculate the sip 3',
+    //   redirectUrl: 'sip-calculator',
+    // },
+  ];
 
-  constructor(private router: Router, private http: HttpClient) {}
-
-  ngOnInit() {
-    // TODO : create a service to fetch data
-    this.http
-      .get<any[]>(
-        'https://672f10db229a881691f1ba80.mockapi.io/api/v1/calculators'
-      )
-      .subscribe({
-        next: (data: any[]) => {
-          this.calculators = data;
-        },
-      });
-  }
+  constructor(private router: Router) {}
 
   navigateTo(url: string) {
     this.router.navigate([`calculators/${url}`]);

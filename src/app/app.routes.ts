@@ -8,6 +8,6 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./calculators/calculators.routes').then((m) => m.routes),
   },
-//   { path: '', redirectTo: 'calculators', pathMatch: 'full' },    
-    { path: '', component : HomeComponent}
+  { path: '', redirectTo: 'calculators', pathMatch: 'full' },    
+    // { path: '', component : HomeComponent}
 ];

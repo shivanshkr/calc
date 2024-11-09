@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { CalculatorLayoutComponent } from '../calculator-layout/calculator-layout.component';
-import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SliderModule } from 'primeng/slider';
 import { InputTextModule } from 'primeng/inputtext';
-
+import { TableModule } from 'primeng/table';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { CommonModule, CurrencyPipe } from '@angular/common';
@@ -28,6 +28,7 @@ import { OnlyNaturalNumbersDirective } from '../../utils/directives/natural-numb
     CommonModule,
     FormsModule,
     OnlyNaturalNumbersDirective,
+    TableModule,
   ],
   providers: [CurrencyPipe],
   templateUrl: './sip-calculator.component.html',
@@ -78,6 +79,8 @@ export class SipCalculatorComponent {
   returnRateSubject = new Subject<number>();
   timeSubject = new Subject<number>();
 
+  yearlyData: any[] = [];
+
   constructor(private currencyPipe: CurrencyPipe) {}
 
   ngOnInit() {
@@ -112,8 +115,11 @@ export class SipCalculatorComponent {
     returnRate: number,
     timeInYears: number
   ) {
-
-    if (monthlyInvestment != null && returnRate != null && timeInYears != null) {
+    if (
+      monthlyInvestment != null &&
+      returnRate != null &&
+      timeInYears != null
+    ) {
       const monthlyRate = returnRate / 12 / 100; // convert annual rate to monthly decimal
       const months = timeInYears * 12;
       const futureValue =
@@ -215,6 +221,7 @@ export class SipCalculatorComponent {
         futureValue: Math.round(futureValue),
       });
     }
+    this.yearlyData = yearlyData;
     const yearWiseData = {
       year: yearlyData.map((d) => d.year),
       investedValue: yearlyData.map((d) => d.investedValue),
