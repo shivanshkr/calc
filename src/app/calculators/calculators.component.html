@@ -1,0 +1,21 @@
+<p-breadcrumb
+  class="max-w-full"
+  [model]="breadcrumbItems"
+  [home]="breadcrumbHome"
+/>
+
+<h1 class="mt-4 font-medium text-2xl">Calculators</h1>
+
+<div class="mt4 grid gap-2">
+  <div
+    class="col-12 md:col-6 lg:col-3 cursor-pointer calculator-card"
+    *ngFor="let calculator of calculators"
+    (click)="navigateTo(calculator.redirectUrl)"
+  >
+    <p-card [header]="calculator.name">
+      <p class="m-0">
+        {{ calculator.description }}
+      </p>
+    </p-card>
+  </div>
+</div>
